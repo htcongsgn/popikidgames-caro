@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f9f6">
+  <meta name="description" content="Chơi cờ caro cùng PoPi – trò chơi tư duy vui nhộn dành cho trẻ 6–10 tuổi, chơi với máy hoặc cùng bạn bè.">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="PoPi Caro">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Chơi cờ caro cùng PoPi 🎮</title>
+  <style>
+    :root { color-scheme: light; --ink:#173d44; --muted:#58747a; --paper:#fffefc; --bg:#f4f9f6; --jade:#008d82; --jade-dark:#08695f; --jade-soft:#def5ee; --coral:#ed6f64; --coral-soft:#fff0ec; --yellow:#ffd773; --line:#ddeae5; --shadow:0 16px 50px rgba(32,81,79,.09); --radius:25px; }
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(circle at 95% 5%,#dff5ec 0%,transparent 30%),radial-gradient(circle at 3% 60%,#fff1d9 0%,transparent 32%),var(--bg);font-family:ui-rounded,"Trebuchet MS",system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);line-height:1.4;min-height:100vh}
+    button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+    button:focus-visible{outline:3px solid #235bc2;outline-offset:3px}
+    button:disabled{opacity:.45;cursor:not-allowed}
+    .container{max-width:1210px;margin:auto;padding:23px 28px 60px}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:23px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:-.03em;font-size:20px}
+    .brand-mark{background:#fff;border:2px solid #a8e5d2;border-radius:18px;width:48px;height:48px;display:grid;place-items:center;font-size:25px;box-shadow:0 6px 0 #d7eee5}
+    .brand-mark img{width:100%;height:100%;object-fit:cover;border-radius:13px}
+    .brand span small{font-size:11px;color:var(--muted);font-weight:700;display:block;letter-spacing:.09em;margin-top:1px}
+    .icon-btn{border:1px solid var(--line);background:white;border-radius:16px;min-height:43px;padding:9px 13px;color:var(--ink);font-size:13px;font-weight:800}
+    .hero{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:19px}
+    .eyebrow{color:var(--jade-dark);font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin:0 0 8px}
+    h1{font-size:clamp(29px,4.5vw,47px);line-height:1.12;letter-spacing:-.055em;margin:0 0 10px;font-weight:900}
+    h1 em{font-style:normal;color:var(--jade)}
+    .hero p:last-child{color:var(--muted);margin:0;max-width:560px;font-size:15px}
+    .mascot-unit{display:flex;gap:11px;align-items:center;flex-shrink:0}
+    .speech{background:#fff;max-width:180px;padding:13px 16px;position:relative;border:1px solid var(--line);border-radius:18px;font-size:13px;font-weight:800;box-shadow:0 5px 16px #0a5f4f0a}
+    .speech:after{content:"";position:absolute;right:-8px;top:29px;width:14px;height:14px;background:white;border-right:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg)}
+    .mascot{position:relative;height:105px;width:105px;border-radius:47% 47% 44% 44%;background:#ffcf71;border:4px solid #e9a942;box-shadow:inset -10px -9px 0 #f5bd5d,0 10px 0 #fbe8c6;transform:rotate(-5deg)}
+    .mascot:before,.mascot:after{content:"";position:absolute;border-radius:50%;width:14px;height:20px;background:#29464c;top:34px}
+    .mascot:before{left:25px}.mascot:after{right:25px}
+    .mascot .mouth{position:absolute;width:28px;height:15px;border-bottom:4px solid #29464c;border-radius:50%;top:56px;left:34px}
+    .mascot .blush{position:absolute;top:55px;left:10px;width:13px;height:7px;border-radius:50%;background:#e78b75;box-shadow:66px 0 #e78b75}
+    .mascot .hair{position:absolute;top:-16px;left:35px;width:28px;height:25px;border-radius:80% 0 80% 10%;background:#42ac87;transform:rotate(-40deg)}
+    .layout{display:grid;grid-template-columns:minmax(270px,318px) minmax(0,1fr);gap:21px;align-items:start}
+    .panel{background:var(--paper);border:1px solid #e7f0eb;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .settings-panel{padding:23px;display:flex;flex-direction:column;gap:20px}
+    .section-name{font-size:15px;font-weight:900;display:flex;align-items:center;gap:8px;margin:0 0 10px}
+    .section-name .number{height:24px;width:24px;border-radius:8px;background:var(--jade-soft);color:var(--jade-dark);display:grid;place-items:center;font-size:12px}
+    .toggle-row{background:#f2f6f4;border-radius:15px;display:grid;grid-template-columns:1fr 1fr;padding:5px;gap:4px}
+    .toggle-row button{border:0;padding:10px 8px;border-radius:12px;color:var(--muted);font-size:12px;font-weight:900;background:transparent;min-height:45px}
+    .toggle-row button.active{background:white;color:var(--jade-dark);box-shadow:0 3px 12px #173d4410}
+    .choice-stack{display:grid;gap:9px}
+    .choice{border:1.5px solid var(--line);background:#fff;border-radius:16px;padding:13px 12px;text-align:left;display:flex;gap:11px;align-items:center;min-height:69px;transition:border-color .15s,background .15s,transform .15s}
+    .choice:hover{transform:translateY(-1px)}
+    .choice.active{border-color:#37b79f;background:#f0fcf7}
+    .choice-emoji{font-size:24px;display:grid;place-items:center;background:#f2f8f5;border-radius:12px;width:43px;height:43px;flex-shrink:0}
+    .choice strong{font-size:13px;display:block}.choice small{color:var(--muted);font-size:11px;display:block;margin-top:3px}
+    .difficulty{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+    .difficulty button{border:1px solid var(--line);border-radius:11px;background:#fff;padding:10px 5px;font-size:12px;font-weight:900;color:var(--muted);min-height:41px}
+    .difficulty button.active{background:var(--jade);border-color:var(--jade);color:white}
+    .aside-divider{height:1px;background:var(--line)}
+    .help-box{background:#fff8e7;border:1px solid #ffebbf;border-radius:17px;padding:15px}
+    .help-box strong{font-size:13px;display:block;margin-bottom:8px}.help-box p{font-size:12px;color:#6b6354;margin:0;line-height:1.65}
+    .board-panel{padding:21px 24px 23px}
+    .board-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+    .board-head .mini-title{color:var(--muted);font-size:12px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+    .turn-pill{font-size:12px;background:#edf8f3;color:var(--jade-dark);border-radius:99px;padding:8px 11px;font-weight:900;display:flex;align-items:center;gap:6px}
+    .turn-pill.is-coral{background:var(--coral-soft);color:#b94a43}
+    .status-card{min-height:70px;background:linear-gradient(105deg,#ecfaf4,#f9fdfb);border:1px solid #e0f1e9;border-radius:17px;padding:13px 16px;margin-bottom:18px;display:flex;align-items:center;gap:12px}
+    .status-icon{width:43px;height:43px;border-radius:14px;background:white;display:grid;place-items:center;font-size:25px;flex-shrink:0}
+    #status-title{font-weight:900;font-size:15px;margin:0 0 3px}#status-description{margin:0;font-size:12px;color:var(--muted)}
+    .board-shell{display:block;max-width:100%;overflow:auto;overscroll-behavior:contain;border-radius:17px;scrollbar-width:thin;scrollbar-color:#a8d7c8 transparent}
+    .board-shell.zoomed{max-height:min(72vh,520px)}
+    .board-tools{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:-5px 0 13px}
+    .board-rule{font-size:12px;color:var(--muted);font-weight:800}
+    .zoom-button{border:1px solid #a9d8c7;background:#f1faf6;border-radius:11px;padding:7px 10px;font-size:12px;font-weight:900;color:var(--jade-dark)}
+    .zoom-tip{font-size:11px;color:var(--muted);margin:11px 0 0;text-align:center}
+    .zoom-tip[hidden]{display:none}
+    .board{width:min(100%,620px);margin-inline:auto;display:grid;grid-template-columns:repeat(var(--cells),minmax(0,1fr));background:#d2ebe0;border:5px solid #d2ebe0;border-radius:19px;gap:3px;padding:3px;aspect-ratio:1;box-shadow:0 8px 0 #b9ded1;touch-action:manipulation}
+    .cell{aspect-ratio:1;min-width:0;min-height:0;border:0;border-radius:7px;background:#fffefa;display:grid;place-items:center;padding:0;position:relative;transition:background .1s,transform .1s;font-family:ui-rounded,system-ui,sans-serif;font-size:clamp(12px,3.2vw,34px);font-weight:1000;line-height:1;color:var(--ink)}
+    .board[data-size="10"] .cell{font-size:clamp(12px,2.4vw,29px);border-radius:5px}
+    .board[data-size="15"] .cell{font-size:clamp(12px,2vw,25px);border-radius:3px}
+    .board.zoomed{width:540px;min-width:540px;max-width:none;margin-inline:0}
+    .board[data-size="15"] .cell.hint:empty:after{font-size:clamp(12px,2vw,18px)}
+    .cell:enabled:hover{background:#fff4cf;transform:scale(.96)}
+    .cell.x{color:var(--coral)}.cell.o{color:var(--jade)}
+    .cell.winning{background:#fff0ad;box-shadow:inset 0 0 0 2px #f4c352}
+    .cell.last:not(.winning){box-shadow:inset 0 0 0 2px #b4d4cb}
+    .cell.hint:empty:after{content:"✦";color:#daa22d;font-size:24px;animation:pulse 1s infinite alternate}
+    .cell:disabled{opacity:1;cursor:default}
+    @keyframes pulse{from{opacity:.45;transform:scale(.8)}to{opacity:1;transform:scale(1.1)}}
+    .action-row{margin-top:21px;display:grid;grid-template-columns:1fr 1fr 1.13fr;gap:9px}
+    .action{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px 8px;min-height:48px;font-size:12px;font-weight:900;color:var(--ink)}
+    .action.primary{background:var(--jade);border-color:var(--jade);color:white;box-shadow:0 5px 0 #b9e5d8}
+    .action:active:not(:disabled){transform:translateY(2px)}
+    .bottom-layout{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:21px}
+    .small-panel{border-radius:19px;padding:16px;background:white;border:1px solid var(--line)}
+    .small-panel h3{margin:0 0 11px;font-size:13px}
+    .score-pairs{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
+    .score-box{text-align:center;background:#fff4f0;border-radius:12px;padding:9px 4px}.score-box.popi{background:#eff9f5}
+    .score-box strong{display:block;font-size:22px}.score-box small{font-size:10px;color:var(--muted);font-weight:800}
+    .versus{color:#7d9691;font-size:11px;font-weight:900}
+    .draw-text{text-align:center;color:var(--muted);font-size:11px;margin:9px 0 0}
+    .tiny-guide{font-size:12px;color:var(--muted);margin:0;line-height:1.6}
+    .footer{margin-top:24px;text-align:center;font-size:11px;color:#6d8987;font-weight:700}
+    .confetti{position:fixed;pointer-events:none;z-index:20;top:-30px;width:11px;height:18px;animation:confetti-fall var(--duration) linear forwards;left:var(--left);background:var(--color);transform:rotate(var(--rotate))}
+    @keyframes confetti-fall{0%{translate:0 -30px;opacity:1}100%{translate:var(--drift) 110vh;rotate:700deg;opacity:0}}
+    @media(max-width:960px){.layout{grid-template-columns:minmax(235px,290px) minmax(0,1fr)}.container{padding:20px 18px 44px}.settings-panel{padding:18px}.board-panel{padding:18px}.speech{display:none}.mascot{width:85px;height:85px}.mascot:before,.mascot:after{top:28px}.mascot .mouth{top:49px;left:25px}.mascot .blush{top:48px;box-shadow:50px 0 #e78b75}.mascot:after{right:17px}.mascot:before{left:17px}}
+    @media(max-width:740px){.layout{grid-template-columns:minmax(0,1fr)}.hero{align-items:center}.hero p:last-child{font-size:13px}.mascot{width:71px;height:71px;border-width:3px;box-shadow:inset -6px -6px 0 #f5bd5d,0 6px 0 #fbe8c6}.mascot:before,.mascot:after{height:15px;width:10px;top:23px}.mascot:before{left:17px}.mascot:after{right:17px}.mascot .mouth{top:39px;left:24px;width:17px}.mascot .blush{top:39px;left:8px;width:9px;box-shadow:44px 0 #e78b75}.mascot .hair{left:19px;width:20px;height:18px;top:-13px}.settings-panel{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.settings-panel .settings-block:first-child{grid-column:1/-1}.settings-panel .aside-divider{display:none}.settings-panel .help-box{grid-column:1/-1}.choice-stack{gap:6px}.choice{min-height:60px;padding:8px}.choice-emoji{height:37px;width:37px;font-size:19px}.board{width:min(100%,620px)}}
+    @media(min-width:741px){.zoom-button{display:none}}
+    @media(max-width:450px){.container{padding:14px 10px 35px}.topbar{margin-bottom:19px}.brand{font-size:16px;gap:8px}.brand-mark{width:42px;height:42px}.icon-btn{padding:9px 7px;font-size:11px}.hero{margin-bottom:19px}.eyebrow{font-size:10px}h1{font-size:28px;max-width:270px}.hero p:last-child{font-size:12px}.mascot{width:64px;height:64px}.mascot:before,.mascot:after{top:20px}.mascot .mouth{top:36px;left:20px}.mascot .blush{top:36px;box-shadow:38px 0 #e78b75}.mascot:after{right:15px}.mascot:before{left:15px}.settings-panel{padding:13px;gap:12px}.section-name{font-size:13px}.section-name .number{width:20px;height:20px}.choice{gap:5px}.choice-emoji{display:none}.choice strong{font-size:11px}.choice small{font-size:10px}.difficulty{gap:3px}.difficulty button{font-size:11px;padding:8px 2px}.board-panel{padding:13px}.board{border-width:3px;gap:2px;padding:2px;border-radius:12px}.cell{border-radius:3px}.board-head{margin-bottom:10px}.status-card{padding:10px 11px;margin-bottom:14px}.status-icon{width:38px;height:38px}.action-row{gap:6px;margin-top:18px}.action{min-height:47px;padding:10px 3px;font-size:11px}.bottom-layout{gap:7px;margin-top:17px}.small-panel{padding:12px}.small-panel h3{font-size:12px}.tiny-guide{font-size:11px}.score-box strong{font-size:19px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark" aria-hidden="true"><img src="assets/icons/icon-192.png" alt="" width="40" height="40"></div><span>PoPi KidGames<small>CHƠI VUI • HỌC HAY</small></span></div>
+      <button class="icon-btn" type="button" id="sound-button" aria-pressed="false">🔇 Âm thanh: Tắt</button>
+    </header>
+    <section class="hero" aria-labelledby="page-title">
+      <div><p class="eyebrow">🌈 Dành cho bé 6–10 tuổi</p><h1 id="page-title">Chơi cờ caro<br>cùng <em>PoPi!</em></h1><p>Rèn tư duy, tập quan sát, tìm đường chiến thắng. Mỗi ván cờ là một cuộc phiêu lưu nhỏ!</p></div>
+      <div class="mascot-unit"><div class="speech" id="mascot-speech">Xin chào! Mình cùng chơi nào! 💛</div><div class="mascot" role="img" aria-label="Linh vật PoPi đang mỉm cười"><span class="mouth"></span><span class="blush"></span><span class="hair"></span></div></div>
+    </section>
+    <main class="layout">
+      <aside class="panel settings-panel" aria-label="Cài đặt trò chơi">
+        <section class="settings-block"><h2 class="section-name"><span class="number">1</span> Bé muốn chơi với ai?</h2><div class="toggle-row" role="group" aria-label="Chế độ chơi"><button type="button" data-mode="ai" class="active" aria-pressed="true">🤖 Với PoPi</button><button type="button" data-mode="friends" aria-pressed="false">👫 Hai bạn</button></div></section>
+        <section class="settings-block"><h2 class="section-name"><span class="number">2</span> Chọn bàn cờ</h2><div class="choice-stack"><button type="button" data-preset="starter" class="choice active" aria-pressed="true"><span class="choice-emoji">🌱</span><span><strong>Bé mới bắt đầu</strong><small>10 × 10 ô · 4 quân liên tiếp</small></span></button><button type="button" data-preset="explorer" class="choice" aria-pressed="false"><span class="choice-emoji">🚀</span><span><strong>Nhà chiến thuật</strong><small>15 × 15 ô · 5 quân liên tiếp</small></span></button></div></section>
+        <section class="settings-block" id="difficulty-section"><h2 class="section-name"><span class="number">3</span> Độ thông minh của PoPi</h2><div class="difficulty" role="group" aria-label="Độ khó"><button type="button" data-difficulty="easy" aria-pressed="false">😊 Dễ</button><button type="button" data-difficulty="normal" class="active" aria-pressed="true">🙂 Vừa</button><button type="button" data-difficulty="hard" aria-pressed="false">🧠 Khó</button></div></section>
+        <div class="aside-divider"></div>
+        <section class="help-box"><strong>💡 Bí kíp nhỏ của PoPi</strong><p id="help-text">Đặt 4 dấu giống nhau thành một hàng ngang, dọc hoặc chéo để chiến thắng. Nhớ để ý cả nước đi của đối thủ nhé!</p></section>
+      </aside>
+      <section class="panel board-panel" aria-labelledby="board-label">
+        <div class="board-head"><span class="mini-title" id="board-label">🎲 BÀN CỜ CỦA BÉ</span><span class="turn-pill is-coral" id="turn-pill">● Lượt của bé</span></div>
+        <div class="status-card" role="status" aria-live="polite" aria-atomic="true"><div class="status-icon" id="status-icon">🌟</div><div><p id="status-title">Sẵn sàng chưa nào?</p><p id="status-description">Bé đi trước với dấu X. Chọn một ô để bắt đầu!</p></div></div>
+        <div class="board-tools"><span class="board-rule" id="board-rule">10 × 10 ô · Nối 4 quân để thắng</span><button class="zoom-button" id="zoom-button" type="button" hidden aria-pressed="false">🔎 Phóng to</button></div>
+        <div class="board-shell" id="board-shell"><div class="board" id="board" role="group" aria-label="Bàn cờ caro 10 nhân 10" style="--cells:10" data-size="10"></div></div>
+        <p class="zoom-tip" id="zoom-tip" hidden>👆 Kéo bàn cờ để xem các ô khi phóng to.</p>
+        <div class="action-row"><button type="button" class="action" id="undo-button">↶ Đi lại</button><button type="button" class="action" id="hint-button">💡 Gợi ý</button><button type="button" class="action primary" id="new-button">↻ Ván mới</button></div>
+        <div class="bottom-layout">
+          <section class="small-panel"><h3>🏆 Thành tích của bé</h3><div class="score-pairs"><div class="score-box"><strong id="score-x">0</strong><small id="score-x-label">Bé thắng</small></div><span class="versus">VS</span><div class="score-box popi"><strong id="score-o">0</strong><small id="score-o-label">PoPi thắng</small></div></div><p class="draw-text" id="draw-text">🤝 Hòa: 0 ván</p></section>
+          <section class="small-panel"><h3>📚 Cách chơi</h3><p class="tiny-guide">❌ đi trước · ⭕ đi sau.<br>Chạm vào một ô trống để đánh dấu.<br>Ai nối đủ hàng trước sẽ thắng! ✨</p></section>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">Được tạo với 💚 cho các bé · PoPi KidGames · Không quảng cáo · Không yêu cầu tài khoản</footer>
+  </div>
+  <script>
+  (() => {
+    'use strict';
+    const SETTINGS_KEY = 'popi-caro-settings-v1';
+    const STATS_KEY = 'popi-caro-stats-v1';
+    const GAME_KEY = 'popi-caro-progress-v1';
+    const PRESETS = {starter:{size:10,target:4},explorer:{size:15,target:5}};
+    const DIRECTIONS = [[1,0],[0,1],[1,1],[1,-1]];
+    const $ = (id) => document.getElementById(id);
+    const safeGet = (key) => {try {return JSON.parse(localStorage.getItem(key));} catch {return null;}};
+    const safeSet = (key,value) => {try {localStorage.setItem(key,JSON.stringify(value));} catch { /* Game remains fully playable without storage. */ }};
+    const savedSettings = safeGet(SETTINGS_KEY) || {};
+    let settings = {
+      mode: savedSettings.mode === 'friends' ? 'friends' : 'ai',
+      preset: PRESETS[savedSettings.preset] ? savedSettings.preset : 'starter',
+      difficulty: ['easy','normal','hard'].includes(savedSettings.difficulty) ? savedSettings.difficulty : 'normal',
+      sound: savedSettings.sound === true
+    };
+    const emptyStats = () => ({ai:{X:0,O:0,draw:0},friends:{X:0,O:0,draw:0}});
+    let stats = safeGet(STATS_KEY) || emptyStats();
+    for (const mode of ['ai','friends']) {
+      if (!stats[mode] || typeof stats[mode] !== 'object') stats[mode] = {X:0,O:0,draw:0};
+      for (const k of ['X','O','draw']) if (!Number.isInteger(stats[mode][k]) || stats[mode][k] < 0) stats[mode][k] = 0;
+    }
+    let game = null;
+    let pendingAi = null;
+    let hintAt = -1;
+    let infoOverride = '';
+    let boardZoomed = false;
+    let audioContext;
+    const getRule = () => PRESETS[settings.preset];
+    const idx = (r,c,size) => r * size + c;
+    const inside = (r,c,size) => r >= 0 && r < size && c >= 0 && c < size;
+    function newGame() {
+      stopAi();
+      game = {cells:Array(getRule().size ** 2).fill(null),history:[],current:'X',winner:null,winning:[],recorded:false};
+      hintAt = -1; infoOverride = '';
+      persist();render();
+    }
+    function persist() {safeSet(GAME_KEY,{mode:settings.mode,preset:settings.preset,game});}
+    function stopAi(){if(pendingAi !== null){clearTimeout(pendingAi);pendingAi = null;}}
+    function restore() {
+      const saved = safeGet(GAME_KEY);
+      if (!saved || saved.mode !== settings.mode || saved.preset !== settings.preset || !saved.game) return false;
+      const data = saved.game, size = getRule().size;
+      if (!Array.isArray(data.cells) || data.cells.length !== size*size || !data.cells.every(v => v === null || v === 'X' || v === 'O')) return false;
+      if (!Array.isArray(data.history) || data.history.length > size*size || !data.history.every(v => Number.isInteger(v) && v >= 0 && v < size*size)) return false;
+      if ((new Set(data.history)).size !== data.history.length) return false;
+      if (data.history.some((i,move) => data.cells[i] !== (move%2===0?'X':'O'))) return false;
+      if (data.cells.filter(Boolean).length !== data.history.length) return false;
+      if (!['X','O'].includes(data.current)) return false;
+      if (data.current !== (data.history.length%2===0?'X':'O') && !data.winner) return false;
+      game = {cells:data.cells,history:data.history,current:data.current,winner:['X','O','draw'].includes(data.winner)?data.winner:null,winning:Array.isArray(data.winning)?data.winning.filter(i=>Number.isInteger(i) && i>=0 && i<size*size):[],recorded:Boolean(data.recorded)};
+      return true;
+    }
+    function getWin(cells, at, piece) {
+      const size = getRule().size, target = getRule().target;
+      const r = Math.floor(at / size),c = at%size;
+      for (const [dr,dc] of DIRECTIONS) {
+        const line = [at];
+        for (const sign of [-1,1]) {
+          for(let step=1;step<size;step++) {
+            const nr = r+dr*step*sign,nc = c+dc*step*sign;
+            if (!inside(nr,nc,size) || cells[idx(nr,nc,size)] !== piece) break;
+            line.push(idx(nr,nc,size));
+          }
+        }
+        if (line.length >= target) return line;
+      }
+      return null;
+    }
+    function doMove(at) {
+      if (game.winner || game.cells[at] !== null) return false;
+      game.cells[at] = game.current;
+      game.history.push(at);
+      const completed = getWin(game.cells,at,game.current);
+      if (completed) {game.winner=game.current;game.winning=completed;finish();}
+      else if (game.history.length === game.cells.length) {game.winner='draw';finish();}
+      else game.current = game.current === 'X' ? 'O' : 'X';
+      hintAt = -1;infoOverride = '';
+      persist();render();
+      return true;
+    }
+    function finish() {
+      if(game.recorded) return;
+      stats[settings.mode][game.winner]++;
+      game.recorded = true;
+      safeSet(STATS_KEY,stats);
+      if(game.winner === 'X' || (settings.mode==='friends' && game.winner==='O')) confetti();
+      sound(game.winner==='draw'?'draw':'win');
+    }
+    function humanPlay(at) {
+      if (pendingAi !== null || game.winner) return;
+      if (settings.mode==='ai' && game.current==='O') return;
+      if (!doMove(at)) return;
+      sound('move');
+      if (settings.mode==='ai' && !game.winner && game.current==='O') scheduleAi();
+    }
+    function scheduleAi() {
+      stopAi();
+      infoOverride='PoPi đang suy nghĩ một chút…';render();
+      pendingAi=setTimeout(() => {
+        pendingAi=null;
+        if (game.winner || game.current!=='O' || settings.mode!=='ai') return;
+        const at = chooseAiMove(game.cells,settings.difficulty);
+        if(at !== -1){doMove(at);sound('move');}
+      },480);
+    }
+    function nearby(cells,radius=2) {
+      const size=getRule().size;
+      const taken=[];
+      for(let i=0;i<cells.length;i++) if(cells[i]) taken.push(i);
+      if(!taken.length) return [idx(Math.floor(size/2),Math.floor(size/2),size)];
+      const set=new Set();
+      for(const i of taken){const r=Math.floor(i/size),c=i%size;
+        for(let dr=-radius;dr<=radius;dr++) for(let dc=-radius;dc<=radius;dc++) {
+          const nr=r+dr,nc=c+dc;
+          if(inside(nr,nc,size) && !cells[idx(nr,nc,size)]) set.add(idx(nr,nc,size));
+        }
+      }
+      return [...set];
+    }
+    function scoreAt(cells,at,piece) {
+      if(cells[at]) return -Infinity;
+      const size=getRule().size,target=getRule().target;
+      const r=Math.floor(at/size),c=at%size;
+      let score=0;
+      for(const [dr,dc] of DIRECTIONS){
+        let count=1,opens=0;
+        for(const sign of [-1,1]){
+          let step=1;
+          while(inside(r+dr*step*sign,c+dc*step*sign,size) && cells[idx(r+dr*step*sign,c+dc*step*sign,size)]===piece){count++;step++;}
+          if(inside(r+dr*step*sign,c+dc*step*sign,size) && !cells[idx(r+dr*step*sign,c+dc*step*sign,size)]) opens++;
+        }
+        if(count>=target) score+=100000000;
+        else if(count===target-1) score+=opens===2?250000:opens===1?65000:100;
+        else if(count===target-2) score+=opens===2?8500:opens===1?1500:15;
+        else if(count===target-3) score+=opens===2?520:opens===1?85:2;
+        else score+=opens===2?30:5;
+      }
+      const center=(size-1)/2;
+      score+=10-Math.abs(r-center)-Math.abs(c-center);
+      return score;
+    }
+    function chooseAiMove(cells,difficulty) {
+      const moves=nearby(cells);
+      if(!moves.length) return -1;
+      // Never miss an immediate winning move. Blocking is guaranteed for Medium/Hard.
+      const winning=moves.filter(i=>{cells[i]='O';const won=Boolean(getWin(cells,i,'O'));cells[i]=null;return won;});
+      if(winning.length) return winning[0];
+      const threats=moves.filter(i=>{cells[i]='X';const won=Boolean(getWin(cells,i,'X'));cells[i]=null;return won;});
+      if(difficulty!=='easy' && threats.length) return threats.sort((a,b)=>scoreAt(cells,b,'O')-scoreAt(cells,a,'O'))[0];
+      const ranked=moves.map(i=>({i,attack:scoreAt(cells,i,'O'),defense:scoreAt(cells,i,'X')}))
+        .map(m=>({...m,score:m.attack*.99+m.defense*1.13})).sort((a,b)=>b.score-a.score);
+      if(difficulty==='easy'){
+        if(threats.length && Math.random()<.4) return threats[0];
+        return ranked[Math.floor(Math.random()*Math.min(ranked.length,Math.random()<.55?10:4))].i;
+      }
+      if(difficulty==='normal') return ranked[0].i;
+      // Hard: anticipate the strongest human reply for each promising candidate.
+      let best=-Infinity,bestMove=ranked[0].i;
+      const shortlist=ranked.slice(0,Math.min(12,ranked.length));
+      for(const move of shortlist){
+        cells[move.i]='O';
+        const replies=nearby(cells,1);
+        let maxReply=0,replyWins=false;
+        for(const reply of replies){
+          const score=scoreAt(cells,reply,'X');
+          if(score>maxReply) maxReply=score;
+          if(score>=100000000) replyWins=true;
+        }
+        const otherThreats=replies.map(i=>scoreAt(cells,i,'O')).sort((a,b)=>b-a);
+        const followUp=otherThreats[0]||0;
+        cells[move.i]=null;
+        const value=move.score + followUp*.16 - (replyWins?10000000:maxReply*.75);
+        if(value>best){best=value;bestMove=move.i;}
+      }
+      return bestMove;
+    }
+    function getHint() {
+      if(game.winner || pendingAi!==null || (settings.mode==='ai' && game.current==='O')) return;
+      const moves=nearby(game.cells);
+      if(!moves.length) return;
+      const piece=game.current,opp=piece==='X'?'O':'X';
+      const won=moves.find(i=>{game.cells[i]=piece;const w=getWin(game.cells,i,piece);game.cells[i]=null;return w;});
+      const block=moves.find(i=>{game.cells[i]=opp;const w=getWin(game.cells,i,opp);game.cells[i]=null;return w;});
+      hintAt=won??block??moves.sort((a,b)=>(scoreAt(game.cells,b,piece)+scoreAt(game.cells,b,opp)*1.25)-(scoreAt(game.cells,a,piece)+scoreAt(game.cells,a,opp)*1.25))[0];
+      infoOverride='Ô có ngôi sao ✦ là một nước đi đáng thử!';sound('hint');render();
+    }
+    function undo() {
+      stopAi();
+      if(!game.history.length) return;
+      // Only finished games change the score. Undoing a completed game also rolls it back.
+      if(game.recorded){stats[settings.mode][game.winner]=Math.max(0,stats[settings.mode][game.winner]-1);safeSet(STATS_KEY,stats);}
+      const steps=settings.mode==='ai' && game.history.length>=2 && game.history.length%2===0 ? 2 : 1;
+      for(let n=0;n<steps;n++){
+        const at=game.history.pop();if(at===undefined)break;
+        game.cells[at]=null;
+      }
+      game.current=game.history.length%2===0?'X':'O';
+      game.winner=null;game.winning=[];game.recorded=false;hintAt=-1;infoOverride='Bé đã quay lại nước đi trước!';
+      persist();render();
+      if(settings.mode==='ai' && game.current==='O') scheduleAi();
+    }
+    function changeSetting(kind,value) {
+      if(settings[kind]===value) return;
+      settings[kind]=value;
+      if(kind === 'preset') boardZoomed = false;
+      safeSet(SETTINGS_KEY,settings);
+      newGame();
+    }
+    function render() {
+      const rule=getRule();
+      for(const btn of document.querySelectorAll('[data-mode]')){const active=btn.dataset.mode===settings.mode;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));}
+      for(const btn of document.querySelectorAll('[data-preset]')){const active=btn.dataset.preset===settings.preset;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));}
+      for(const btn of document.querySelectorAll('[data-difficulty]')){const active=btn.dataset.difficulty===settings.difficulty;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));}
+      $('difficulty-section').hidden=settings.mode==='friends';
+      $('sound-button').textContent=settings.sound?'🔊 Âm thanh: Bật':'🔇 Âm thanh: Tắt';
+      $('sound-button').setAttribute('aria-pressed',String(settings.sound));
+      $('help-text').textContent=`Đặt ${rule.target} dấu giống nhau thành một hàng ngang, dọc hoặc chéo để chiến thắng. Nhớ để ý cả nước đi của đối thủ nhé!`;
+      const board=$('board');board.style.setProperty('--cells',String(rule.size));board.dataset.size=String(rule.size);
+      board.classList.toggle('zoomed',boardZoomed && rule.size===15);
+      $('board-shell').classList.toggle('zoomed',boardZoomed && rule.size===15);
+      $('board-rule').textContent=`${rule.size} × ${rule.size} ô · Nối ${rule.target} quân để thắng`;
+      $('zoom-button').hidden=rule.size!==15;
+      $('zoom-button').textContent=boardZoomed?'🔍 Thu nhỏ':'🔎 Phóng to';
+      $('zoom-button').setAttribute('aria-pressed',String(boardZoomed));
+      $('zoom-tip').hidden=!(boardZoomed && rule.size===15);
+      board.setAttribute('aria-label',`Bàn cờ caro ${rule.size} nhân ${rule.size}, nối ${rule.target} để thắng`);
+      const fragment=document.createDocumentFragment(),last=game.history.at(-1),winSet=new Set(game.winning);
+      game.cells.forEach((piece,i)=>{
+        const cell=document.createElement('button');cell.type='button';cell.className='cell';
+        if(piece)cell.classList.add(piece.toLowerCase());
+        if(i===last)cell.classList.add('last');
+        if(winSet.has(i))cell.classList.add('winning');
+        if(hintAt===i)cell.classList.add('hint');
+        cell.textContent=piece||'';
+        const r=Math.floor(i/rule.size)+1,c=i%rule.size+1;
+        cell.setAttribute('aria-label',`Hàng ${r}, cột ${c}${piece?', dấu '+piece:''}${hintAt===i?', gợi ý':''}`);
+        cell.disabled=Boolean(piece)||Boolean(game.winner)||pendingAi!==null||(settings.mode==='ai'&&game.current==='O');
+        cell.addEventListener('click',()=>humanPlay(i));fragment.appendChild(cell);
+      });
+      board.replaceChildren(fragment);
+      $('undo-button').disabled=game.history.length===0;
+      $('hint-button').disabled=Boolean(game.winner)||pendingAi!==null||(settings.mode==='ai'&&game.current==='O');
+      const isHumanTurn=game.current==='X',winner=game.winner;
+      let title,description,icon;
+      if(winner==='draw'){title='Hai bên hòa nhau! 🤝';description='Cả hai đã chơi rất tốt! Thử thêm một ván nhé.';icon='🌈';}
+      else if(winner==='X'){title=settings.mode==='ai'?'Hoan hô! Bé chiến thắng! 🎉':'Bạn 1 đã chiến thắng! 🎉';description='Quan sát thật giỏi! Bé có muốn thử ván tiếp theo?';icon='🏆';}
+      else if(winner==='O'){title=settings.mode==='ai'?'PoPi thắng lượt này! 🌟':'Bạn 2 đã chiến thắng! 🎉';description='Chơi lại và thử một chiến thuật khác nhé!';icon=settings.mode==='ai'?'🤖':'🏆';}
+      else if(pendingAi!==null){title='Đến lượt của PoPi 🤖';description='PoPi đang chọn một ô thật khéo…';icon='🤔';}
+      else {title=isHumanTurn?(game.history.length===0?'Sẵn sàng chưa nào?':'Đến lượt của bé!'):settings.mode==='ai'?'Đến lượt PoPi!':'Đến lượt bạn 2!';
+        if(settings.mode==='friends'&&isHumanTurn&&game.history.length>0)title='Đến lượt bạn 1!';
+        description=infoOverride||(game.history.length===0?'Bé đi trước với dấu X. Chọn một ô để bắt đầu!':`Hãy nối đủ ${rule.target} dấu thành một hàng nhé!`);icon=isHumanTurn?'🌟':settings.mode==='ai'?'🤖':'🌻';}
+      $('status-title').textContent=title;$('status-description').textContent=description;$('status-icon').textContent=icon;
+      $('turn-pill').textContent=winner?'🏁 Đã kết thúc':settings.mode==='ai'?(isHumanTurn?'● Lượt của bé':'● Lượt PoPi'):(isHumanTurn?'● Lượt bạn 1':'● Lượt bạn 2');
+      $('turn-pill').classList.toggle('is-coral',isHumanTurn&&!winner);
+      $('score-x').textContent=stats[settings.mode].X;$('score-o').textContent=stats[settings.mode].O;$('draw-text').textContent=`🤝 Hòa: ${stats[settings.mode].draw} ván`;
+      $('score-x-label').textContent=settings.mode==='ai'?'Bé thắng':'Bạn 1 thắng';
+      $('score-o-label').textContent=settings.mode==='ai'?'PoPi thắng':'Bạn 2 thắng';
+      $('mascot-speech').textContent=winner==='X'?'Giỏi quá! 🎉':winner==='O'?'Chúng mình chơi lại nhé! 💛':'Xin chào! Mình cùng chơi nào! 💛';
+    }
+    function sound(type) {
+      if(!settings.sound) return;
+      try {
+        const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)return;
+        audioContext ||= new Audio();
+        if(audioContext.state==='suspended')audioContext.resume().catch(()=>{});
+        const now=audioContext.currentTime;
+        const notes=type==='win'?[523,659,784]:type==='hint'?[659,784]:type==='draw'?[392,523]:[440];
+        notes.forEach((freq,n)=>{const osc=audioContext.createOscillator(),gain=audioContext.createGain();osc.type='sine';osc.frequency.value=freq;gain.gain.setValueAtTime(.0001,now+n*.09);gain.gain.exponentialRampToValueAtTime(.08,now+n*.09+.012);gain.gain.exponentialRampToValueAtTime(.0001,now+n*.09+.16);osc.connect(gain).connect(audioContext.destination);osc.start(now+n*.09);osc.stop(now+n*.09+.17);});
+      } catch {/* Audio optional. */}
+    }
+    function confetti() {
+      if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+      const colors=['#ed6f64','#ffd773','#008d82','#73afe2','#b196e9'];
+      for(let i=0;i<33;i++){
+        const bit=document.createElement('span');bit.className='confetti';
+        bit.style.setProperty('--left',Math.round(Math.random()*100)+'vw');
+        bit.style.setProperty('--color',colors[i%colors.length]);
+        bit.style.setProperty('--duration',2+Math.random()*1.5+'s');
+        bit.style.setProperty('--rotate',Math.round(Math.random()*360)+'deg');
+        bit.style.setProperty('--drift',Math.round((Math.random()-.5)*170)+'px');
+        document.body.appendChild(bit);bit.addEventListener('animationend',()=>bit.remove(),{once:true});
+      }
+    }
+    document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>changeSetting('mode',b.dataset.mode)));
+    document.querySelectorAll('[data-preset]').forEach(b=>b.addEventListener('click',()=>changeSetting('preset',b.dataset.preset)));
+    document.querySelectorAll('[data-difficulty]').forEach(b=>b.addEventListener('click',()=>changeSetting('difficulty',b.dataset.difficulty)));
+    $('sound-button').addEventListener('click',()=>{settings.sound=!settings.sound;safeSet(SETTINGS_KEY,settings);render();sound('hint');});
+    $('zoom-button').addEventListener('click',()=>{
+      boardZoomed=!boardZoomed;
+      render();
+      if(boardZoomed){
+        const shell=$('board-shell');
+        shell.scrollLeft=Math.max(0,(shell.scrollWidth-shell.clientWidth)/2);
+        shell.scrollTop=Math.max(0,(shell.scrollHeight-shell.clientHeight)/2);
+      }
+    });
+    $('new-button').addEventListener('click',newGame);
+    $('undo-button').addEventListener('click',undo);
+    $('hint-button').addEventListener('click',getHint);
+    if(!restore())newGame(); else {render();if(!game.winner && settings.mode==='ai' && game.current==='O') scheduleAi();}
+    // Limited development hooks for automated rule/AI checks (not required for normal gameplay).
+    Object.defineProperty(window,'__popiCaroTest',{value:{getRule,getWin,scoreAt,chooseAiMove,getState:()=>({settings:{...settings},game:structuredClone(game),stats:structuredClone(stats)})},enumerable:false});
+  })();
+  </script>
+</body>
+</html>
