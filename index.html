@@ -2,9 +2,10 @@
 <html lang="vi">
 <head>
   <meta charset="utf-8">
+  <meta name="application-name" content="PoPi Caro">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f4f9f6">
-  <meta name="description" content="Chơi cờ caro cùng PoPi – trò chơi tư duy vui nhộn dành cho trẻ 6–10 tuổi, chơi với máy hoặc cùng bạn bè.">
+  <meta name="description" content="PoPi Caro – A fun, free, bilingual Caro strategy game for kids 6–10. Chơi cờ caro cùng PoPi Smart Kids.">
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
@@ -18,8 +19,8 @@
   <style>
     :root { color-scheme: light; --ink:#173d44; --muted:#58747a; --paper:#fffefc; --bg:#f4f9f6; --jade:#008d82; --jade-dark:#08695f; --jade-soft:#def5ee; --coral:#ed6f64; --coral-soft:#fff0ec; --yellow:#ffd773; --line:#ddeae5; --shadow:0 16px 50px rgba(32,81,79,.09); --radius:25px; }
     *{box-sizing:border-box}
-    body{margin:0;background:radial-gradient(circle at 95% 5%,#dff5ec 0%,transparent 30%),radial-gradient(circle at 3% 60%,#fff1d9 0%,transparent 32%),var(--bg);font-family:ui-rounded,"Trebuchet MS",system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);line-height:1.4;min-height:100vh}
-    button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+    body{margin:0;background:radial-gradient(circle at 95% 5%,#dff5ec 0%,transparent 30%),radial-gradient(circle at 3% 60%,#fff1d9 0%,transparent 32%),var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Helvetica Neue",sans-serif;color:var(--ink);line-height:1.4;min-height:100vh}
+    button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;-webkit-appearance:none;appearance:none} html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
     button:focus-visible{outline:3px solid #235bc2;outline-offset:3px}
     button:disabled{opacity:.45;cursor:not-allowed}
     .container{max-width:1210px;margin:auto;padding:23px 28px 60px}
@@ -29,9 +30,15 @@
     .brand-mark img{width:100%;height:100%;object-fit:cover;border-radius:13px}
     .brand span small{font-size:11px;color:var(--muted);font-weight:700;display:block;letter-spacing:.09em;margin-top:1px}
     .icon-btn{border:1px solid var(--line);background:white;border-radius:16px;min-height:43px;padding:9px 13px;color:var(--ink);font-size:13px;font-weight:800}
+    .header-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .language-switch{display:flex;gap:3px;padding:3px;background:#eaf5ef;border:1px solid #cde6db;border-radius:12px;flex-shrink:0}
+    .language-switch button{border:0;border-radius:9px;min-height:36px;min-width:40px;padding:7px 9px;background:transparent;color:var(--muted);font-size:12px;font-weight:900}
+    .language-switch button.active{background:#fff;color:var(--jade-dark);box-shadow:0 2px 8px #173d441a}
+    .brand{min-width:0}.brand>span{overflow-wrap:anywhere}.brand-mark{flex-shrink:0}
+    @media(max-width:570px){.topbar{align-items:flex-start;gap:8px}.header-actions{gap:5px}.header-actions .icon-btn{font-size:11px;min-height:35px}.language-switch button{min-width:34px;min-height:33px;padding:5px}}
     .hero{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:19px}
     .eyebrow{color:var(--jade-dark);font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin:0 0 8px}
-    h1{font-size:clamp(29px,4.5vw,47px);line-height:1.12;letter-spacing:-.055em;margin:0 0 10px;font-weight:900}
+    h1{font-size:clamp(29px,4.5vw,47px);line-height:1.12;letter-spacing:-.035em;margin:0 0 10px;font-weight:900}
     h1 em{font-style:normal;color:var(--jade)}
     .hero p:last-child{color:var(--muted);margin:0;max-width:560px;font-size:15px}
     .mascot-unit{display:flex;gap:11px;align-items:center;flex-shrink:0}
@@ -79,12 +86,15 @@
     .zoom-tip{font-size:11px;color:var(--muted);margin:11px 0 0;text-align:center}
     .zoom-tip[hidden]{display:none}
     .board{width:min(100%,620px);margin-inline:auto;display:grid;grid-template-columns:repeat(var(--cells),minmax(0,1fr));background:#d2ebe0;border:5px solid #d2ebe0;border-radius:19px;gap:3px;padding:3px;aspect-ratio:1;box-shadow:0 8px 0 #b9ded1;touch-action:manipulation}
-    .cell{aspect-ratio:1;min-width:0;min-height:0;border:0;border-radius:7px;background:#fffefa;display:grid;place-items:center;padding:0;position:relative;transition:background .1s,transform .1s;font-family:ui-rounded,system-ui,sans-serif;font-size:clamp(12px,3.2vw,34px);font-weight:1000;line-height:1;color:var(--ink)}
+    .cell{aspect-ratio:1;min-width:0;min-height:0;border:0;border-radius:7px;background:#fffefa;display:grid;place-items:center;padding:0;position:relative;transition:background .1s,transform .1s;font-family:Arial,"Helvetica Neue",sans-serif;font-size:clamp(12px,3.2vw,34px);font-weight:900;line-height:1;color:var(--ink);-webkit-appearance:none;appearance:none;box-sizing:border-box;overflow:hidden}
+    /* Safari/iPadOS: absolutely center glyphs; native button content layout can be inconsistent. */
+    .cell .piece-mark{position:absolute;left:50%;top:50%;display:block;width:100%;line-height:1;text-align:center;transform:translate(-50%,-50%);pointer-events:none;font:inherit;font-weight:900;letter-spacing:0;white-space:nowrap;-webkit-user-select:none;user-select:none}
+    .cell.x .piece-mark{color:var(--coral)}.cell.o .piece-mark{color:var(--jade)}
     .board[data-size="10"] .cell{font-size:clamp(12px,2.4vw,29px);border-radius:5px}
     .board[data-size="15"] .cell{font-size:clamp(12px,2vw,25px);border-radius:3px}
     .board.zoomed{width:540px;min-width:540px;max-width:none;margin-inline:0}
     .board[data-size="15"] .cell.hint:empty:after{font-size:clamp(12px,2vw,18px)}
-    .cell:enabled:hover{background:#fff4cf;transform:scale(.96)}
+    @media(hover:hover){.cell:enabled:hover{background:#fff4cf;transform:scale(.98)}}
     .cell.x{color:var(--coral)}.cell.o{color:var(--jade)}
     .cell.winning{background:#fff0ad;box-shadow:inset 0 0 0 2px #f4c352}
     .cell.last:not(.winning){box-shadow:inset 0 0 0 2px #b4d4cb}
@@ -103,12 +113,20 @@
     .score-box strong{display:block;font-size:22px}.score-box small{font-size:10px;color:var(--muted);font-weight:800}
     .versus{color:#7d9691;font-size:11px;font-weight:900}
     .draw-text{text-align:center;color:var(--muted);font-size:11px;margin:9px 0 0}
-    .tiny-guide{font-size:12px;color:var(--muted);margin:0;line-height:1.6}
+    .tiny-guide{font-size:12px;color:var(--muted);margin:0;line-height:1.6;white-space:pre-line}
     .footer{margin-top:24px;text-align:center;font-size:11px;color:#6d8987;font-weight:700}
     .confetti{position:fixed;pointer-events:none;z-index:20;top:-30px;width:11px;height:18px;animation:confetti-fall var(--duration) linear forwards;left:var(--left);background:var(--color);transform:rotate(var(--rotate))}
     @keyframes confetti-fall{0%{translate:0 -30px;opacity:1}100%{translate:var(--drift) 110vh;rotate:700deg;opacity:0}}
     @media(max-width:960px){.layout{grid-template-columns:minmax(235px,290px) minmax(0,1fr)}.container{padding:20px 18px 44px}.settings-panel{padding:18px}.board-panel{padding:18px}.speech{display:none}.mascot{width:85px;height:85px}.mascot:before,.mascot:after{top:28px}.mascot .mouth{top:49px;left:25px}.mascot .blush{top:48px;box-shadow:50px 0 #e78b75}.mascot:after{right:17px}.mascot:before{left:17px}}
     @media(max-width:740px){.layout{grid-template-columns:minmax(0,1fr)}.hero{align-items:center}.hero p:last-child{font-size:13px}.mascot{width:71px;height:71px;border-width:3px;box-shadow:inset -6px -6px 0 #f5bd5d,0 6px 0 #fbe8c6}.mascot:before,.mascot:after{height:15px;width:10px;top:23px}.mascot:before{left:17px}.mascot:after{right:17px}.mascot .mouth{top:39px;left:24px;width:17px}.mascot .blush{top:39px;left:8px;width:9px;box-shadow:44px 0 #e78b75}.mascot .hair{left:19px;width:20px;height:18px;top:-13px}.settings-panel{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.settings-panel .settings-block:first-child{grid-column:1/-1}.settings-panel .aside-divider{display:none}.settings-panel .help-box{grid-column:1/-1}.choice-stack{gap:6px}.choice{min-height:60px;padding:8px}.choice-emoji{height:37px;width:37px;font-size:19px}.board{width:min(100%,620px)}}
+    /* On narrow screens, settings use the full available width for readable text. */
+    @media(max-width:570px){
+      .settings-panel{display:flex;flex-direction:column}
+      .choice-stack{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .choice{width:100%;min-width:0}
+      .brand span small{font-size:10px;letter-spacing:.025em}
+      .board-head{flex-wrap:wrap}
+    }
     @media(min-width:741px){.zoom-button{display:none}}
     @media(max-width:450px){.container{padding:14px 10px 35px}.topbar{margin-bottom:19px}.brand{font-size:16px;gap:8px}.brand-mark{width:42px;height:42px}.icon-btn{padding:9px 7px;font-size:11px}.hero{margin-bottom:19px}.eyebrow{font-size:10px}h1{font-size:28px;max-width:270px}.hero p:last-child{font-size:12px}.mascot{width:64px;height:64px}.mascot:before,.mascot:after{top:20px}.mascot .mouth{top:36px;left:20px}.mascot .blush{top:36px;box-shadow:38px 0 #e78b75}.mascot:after{right:15px}.mascot:before{left:15px}.settings-panel{padding:13px;gap:12px}.section-name{font-size:13px}.section-name .number{width:20px;height:20px}.choice{gap:5px}.choice-emoji{display:none}.choice strong{font-size:11px}.choice small{font-size:10px}.difficulty{gap:3px}.difficulty button{font-size:11px;padding:8px 2px}.board-panel{padding:13px}.board{border-width:3px;gap:2px;padding:2px;border-radius:12px}.cell{border-radius:3px}.board-head{margin-bottom:10px}.status-card{padding:10px 11px;margin-bottom:14px}.status-icon{width:38px;height:38px}.action-row{gap:6px;margin-top:18px}.action{min-height:47px;padding:10px 3px;font-size:11px}.bottom-layout{gap:7px;margin-top:17px}.small-panel{padding:12px}.small-panel h3{font-size:12px}.tiny-guide{font-size:11px}.score-box strong{font-size:19px}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
@@ -117,35 +135,41 @@
 <body>
   <div class="container">
     <header class="topbar">
-      <div class="brand"><div class="brand-mark" aria-hidden="true"><img src="assets/icons/icon-192.png" alt="" width="40" height="40"></div><span>PoPi KidGames<small>CHƠI VUI • HỌC HAY</small></span></div>
-      <button class="icon-btn" type="button" id="sound-button" aria-pressed="false">🔇 Âm thanh: Tắt</button>
+      <div class="brand"><div class="brand-mark" aria-hidden="true"><img src="data:image/png;base64,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" alt="" width="44" height="44"></div><span>PoPi Smart Kids<small data-i18n="tagline">CHƠI VUI • HỌC HAY</small></span></div>
+      <div class="header-actions">
+        <div class="language-switch" role="group" data-i18n-aria="languagePicker" aria-label="Chọn ngôn ngữ">
+          <button type="button" data-lang="vi" class="active" aria-pressed="true" aria-label="Tiếng Việt">VI</button>
+          <button type="button" data-lang="en" aria-pressed="false" aria-label="English">EN</button>
+        </div>
+        <button class="icon-btn" type="button" id="sound-button" aria-pressed="false">🔇 Âm thanh: Tắt</button>
+      </div>
     </header>
     <section class="hero" aria-labelledby="page-title">
-      <div><p class="eyebrow">🌈 Dành cho bé 6–10 tuổi</p><h1 id="page-title">Chơi cờ caro<br>cùng <em>PoPi!</em></h1><p>Rèn tư duy, tập quan sát, tìm đường chiến thắng. Mỗi ván cờ là một cuộc phiêu lưu nhỏ!</p></div>
-      <div class="mascot-unit"><div class="speech" id="mascot-speech">Xin chào! Mình cùng chơi nào! 💛</div><div class="mascot" role="img" aria-label="Linh vật PoPi đang mỉm cười"><span class="mouth"></span><span class="blush"></span><span class="hair"></span></div></div>
+      <div><p class="eyebrow" data-i18n="eyebrow">🌈 Dành cho bé 6–10 tuổi</p><h1 id="page-title">Chơi cờ caro<br>cùng <em>PoPi!</em></h1><p data-i18n="intro">Rèn tư duy, tập quan sát, tìm đường chiến thắng. Mỗi ván cờ là một cuộc phiêu lưu nhỏ!</p></div>
+      <div class="mascot-unit"><div class="speech" id="mascot-speech">Xin chào! Mình cùng chơi nào! 💛</div><div class="mascot" role="img" data-i18n-aria="mascotAria" aria-label="Linh vật PoPi đang mỉm cười"><span class="mouth"></span><span class="blush"></span><span class="hair"></span></div></div>
     </section>
     <main class="layout">
-      <aside class="panel settings-panel" aria-label="Cài đặt trò chơi">
-        <section class="settings-block"><h2 class="section-name"><span class="number">1</span> Bé muốn chơi với ai?</h2><div class="toggle-row" role="group" aria-label="Chế độ chơi"><button type="button" data-mode="ai" class="active" aria-pressed="true">🤖 Với PoPi</button><button type="button" data-mode="friends" aria-pressed="false">👫 Hai bạn</button></div></section>
-        <section class="settings-block"><h2 class="section-name"><span class="number">2</span> Chọn bàn cờ</h2><div class="choice-stack"><button type="button" data-preset="starter" class="choice active" aria-pressed="true"><span class="choice-emoji">🌱</span><span><strong>Bé mới bắt đầu</strong><small>10 × 10 ô · 4 quân liên tiếp</small></span></button><button type="button" data-preset="explorer" class="choice" aria-pressed="false"><span class="choice-emoji">🚀</span><span><strong>Nhà chiến thuật</strong><small>15 × 15 ô · 5 quân liên tiếp</small></span></button></div></section>
-        <section class="settings-block" id="difficulty-section"><h2 class="section-name"><span class="number">3</span> Độ thông minh của PoPi</h2><div class="difficulty" role="group" aria-label="Độ khó"><button type="button" data-difficulty="easy" aria-pressed="false">😊 Dễ</button><button type="button" data-difficulty="normal" class="active" aria-pressed="true">🙂 Vừa</button><button type="button" data-difficulty="hard" aria-pressed="false">🧠 Khó</button></div></section>
+      <aside class="panel settings-panel" data-i18n-aria="settingsLabel" aria-label="Cài đặt trò chơi">
+        <section class="settings-block"><h2 class="section-name"><span class="number">1</span> <span data-i18n="playWith">Bé muốn chơi với ai?</span></h2><div class="toggle-row" role="group" data-i18n-aria="modeLabel" aria-label="Chế độ chơi"><button type="button" data-mode="ai" class="active" aria-pressed="true" data-i18n="withPopi">🤖 Với PoPi</button><button type="button" data-mode="friends" aria-pressed="false" data-i18n="twoPlayers">👫 Hai bạn</button></div></section>
+        <section class="settings-block"><h2 class="section-name"><span class="number">2</span> <span data-i18n="chooseBoard">Chọn bàn cờ</span></h2><div class="choice-stack"><button type="button" data-preset="starter" class="choice active" aria-pressed="true"><span class="choice-emoji">🌱</span><span><strong data-i18n="starter">Bé mới bắt đầu</strong><small data-i18n="starterSub">10 × 10 ô · 4 quân liên tiếp</small></span></button><button type="button" data-preset="explorer" class="choice" aria-pressed="false"><span class="choice-emoji">🚀</span><span><strong data-i18n="advanced">Nhà chiến thuật</strong><small data-i18n="advancedSub">15 × 15 ô · 5 quân liên tiếp</small></span></button></div></section>
+        <section class="settings-block" id="difficulty-section"><h2 class="section-name"><span class="number">3</span> <span data-i18n="difficultyTitle">Độ thông minh của PoPi</span></h2><div class="difficulty" role="group" data-i18n-aria="difficultyLabel" aria-label="Độ khó"><button type="button" data-difficulty="easy" aria-pressed="false" data-i18n="easy">😊 Dễ</button><button type="button" data-difficulty="normal" class="active" aria-pressed="true" data-i18n="normal">🙂 Vừa</button><button type="button" data-difficulty="hard" aria-pressed="false" data-i18n="hard">🧠 Khó</button></div></section>
         <div class="aside-divider"></div>
-        <section class="help-box"><strong>💡 Bí kíp nhỏ của PoPi</strong><p id="help-text">Đặt 4 dấu giống nhau thành một hàng ngang, dọc hoặc chéo để chiến thắng. Nhớ để ý cả nước đi của đối thủ nhé!</p></section>
+        <section class="help-box"><strong data-i18n="tipsTitle">💡 Bí kíp nhỏ của PoPi</strong><p id="help-text">Đặt 4 dấu giống nhau thành một hàng ngang, dọc hoặc chéo để chiến thắng. Nhớ để ý cả nước đi của đối thủ nhé!</p></section>
       </aside>
       <section class="panel board-panel" aria-labelledby="board-label">
-        <div class="board-head"><span class="mini-title" id="board-label">🎲 BÀN CỜ CỦA BÉ</span><span class="turn-pill is-coral" id="turn-pill">● Lượt của bé</span></div>
+        <div class="board-head"><span class="mini-title" id="board-label" data-i18n="boardTitle">🎲 BÀN CỜ CỦA BÉ</span><span class="turn-pill is-coral" id="turn-pill">● Lượt của bé</span></div>
         <div class="status-card" role="status" aria-live="polite" aria-atomic="true"><div class="status-icon" id="status-icon">🌟</div><div><p id="status-title">Sẵn sàng chưa nào?</p><p id="status-description">Bé đi trước với dấu X. Chọn một ô để bắt đầu!</p></div></div>
         <div class="board-tools"><span class="board-rule" id="board-rule">10 × 10 ô · Nối 4 quân để thắng</span><button class="zoom-button" id="zoom-button" type="button" hidden aria-pressed="false">🔎 Phóng to</button></div>
         <div class="board-shell" id="board-shell"><div class="board" id="board" role="group" aria-label="Bàn cờ caro 10 nhân 10" style="--cells:10" data-size="10"></div></div>
-        <p class="zoom-tip" id="zoom-tip" hidden>👆 Kéo bàn cờ để xem các ô khi phóng to.</p>
-        <div class="action-row"><button type="button" class="action" id="undo-button">↶ Đi lại</button><button type="button" class="action" id="hint-button">💡 Gợi ý</button><button type="button" class="action primary" id="new-button">↻ Ván mới</button></div>
+        <p class="zoom-tip" id="zoom-tip" hidden data-i18n="zoomTip">👆 Kéo bàn cờ để xem các ô khi phóng to.</p>
+        <div class="action-row"><button type="button" class="action" id="undo-button" data-i18n="undoBtn">↶ Đi lại</button><button type="button" class="action" id="hint-button" data-i18n="hintBtn">💡 Gợi ý</button><button type="button" class="action primary" id="new-button" data-i18n="newBtn">↻ Ván mới</button></div>
         <div class="bottom-layout">
-          <section class="small-panel"><h3>🏆 Thành tích của bé</h3><div class="score-pairs"><div class="score-box"><strong id="score-x">0</strong><small id="score-x-label">Bé thắng</small></div><span class="versus">VS</span><div class="score-box popi"><strong id="score-o">0</strong><small id="score-o-label">PoPi thắng</small></div></div><p class="draw-text" id="draw-text">🤝 Hòa: 0 ván</p></section>
-          <section class="small-panel"><h3>📚 Cách chơi</h3><p class="tiny-guide">❌ đi trước · ⭕ đi sau.<br>Chạm vào một ô trống để đánh dấu.<br>Ai nối đủ hàng trước sẽ thắng! ✨</p></section>
+          <section class="small-panel"><h3 data-i18n="scoreTitle">🏆 Thành tích của bé</h3><div class="score-pairs"><div class="score-box"><strong id="score-x">0</strong><small id="score-x-label">Bé thắng</small></div><span class="versus">VS</span><div class="score-box popi"><strong id="score-o">0</strong><small id="score-o-label">PoPi thắng</small></div></div><p class="draw-text" id="draw-text">🤝 Hòa: 0 ván</p></section>
+          <section class="small-panel"><h3 data-i18n="guideTitle">📚 Cách chơi</h3><p class="tiny-guide" id="tiny-guide">❌ đi trước · ⭕ đi sau.<br>Chạm vào một ô trống để đánh dấu.<br>Ai nối đủ hàng trước sẽ thắng! ✨</p></section>
         </div>
       </section>
     </main>
-    <footer class="footer">Được tạo với 💚 cho các bé · PoPi KidGames · Không quảng cáo · Không yêu cầu tài khoản</footer>
+    <footer class="footer" data-i18n="footer">Được tạo với 💚 cho các bé · PoPi Smart Kids · Không quảng cáo · Không yêu cầu tài khoản</footer>
   </div>
   <script>
   (() => {
@@ -163,8 +187,65 @@
       mode: savedSettings.mode === 'friends' ? 'friends' : 'ai',
       preset: PRESETS[savedSettings.preset] ? savedSettings.preset : 'starter',
       difficulty: ['easy','normal','hard'].includes(savedSettings.difficulty) ? savedSettings.difficulty : 'normal',
-      sound: savedSettings.sound === true
+      sound: savedSettings.sound === true,
+      language: savedSettings.language === 'en' ? 'en' : 'vi'
     };
+    const I18N = {
+      vi: {
+        title:'Chơi cờ caro cùng PoPi 🎮', tagline:'CHƠI VUI • HỌC HAY', eyebrow:'🌈 Dành cho bé 6–10 tuổi', intro:'Rèn tư duy, tập quan sát, tìm đường chiến thắng. Mỗi ván cờ là một cuộc phiêu lưu nhỏ!',
+        playWith:'Bé muốn chơi với ai?', chooseBoard:'Chọn bàn cờ', difficultyTitle:'Độ thông minh của PoPi', withPopi:'🤖 Với PoPi', twoPlayers:'👫 Hai bạn',
+        starter:'Bé mới bắt đầu', starterSub:'10 × 10 ô · 4 quân liên tiếp', advanced:'Nhà chiến thuật', advancedSub:'15 × 15 ô · 5 quân liên tiếp',
+        easy:'😊 Dễ', normal:'🙂 Vừa', hard:'🧠 Khó', tipsTitle:'💡 Bí kíp nhỏ của PoPi', boardTitle:'🎲 BÀN CỜ CỦA BÉ', zoomTip:'👆 Kéo bàn cờ để xem các ô khi phóng to.',
+        undoBtn:'↶ Đi lại', hintBtn:'💡 Gợi ý', newBtn:'↻ Ván mới', scoreTitle:'🏆 Thành tích của bé', guideTitle:'📚 Cách chơi',
+        footer:'Được tạo với 💚 cho các bé · PoPi Smart Kids · Không quảng cáo · Không yêu cầu tài khoản',
+        languagePicker:'Chọn ngôn ngữ',settingsLabel:'Cài đặt trò chơi',modeLabel:'Chế độ chơi',difficultyLabel:'Độ khó',mascotAria:'Linh vật PoPi đang mỉm cười',
+        soundOn:'🔊 Âm thanh: Bật',soundOff:'🔇 Âm thanh: Tắt',
+        help:(n)=>`Đặt ${n} dấu giống nhau thành một hàng ngang, dọc hoặc chéo để chiến thắng. Nhớ để ý cả nước đi của đối thủ nhé!`,
+        boardRule:(size,n)=>`${size} × ${size} ô · Nối ${n} quân để thắng`,boardAria:(size,n)=>`Bàn cờ caro ${size} nhân ${size}, nối ${n} để thắng`,
+        zoomIn:'🔎 Phóng to',zoomOut:'🔍 Thu nhỏ',cellAria:(r,c,piece,hint)=>`Hàng ${r}, cột ${c}${piece?', dấu '+piece:''}${hint?', gợi ý':''}`,
+        drawTitle:'Hai bên hòa nhau! 🤝',drawDesc:'Cả hai đã chơi rất tốt! Thử thêm một ván nhé.',
+        xWon:'Hoan hô! Bé chiến thắng! 🎉',p1Won:'Bạn 1 đã chiến thắng! 🎉',xDesc:'Quan sát thật giỏi! Bé có muốn thử ván tiếp theo?',
+        oWon:'PoPi thắng lượt này! 🌟',p2Won:'Bạn 2 đã chiến thắng! 🎉',oDesc:'Chơi lại và thử một chiến thuật khác nhé!',
+        aiTurn:'Đến lượt của PoPi 🤖',aiThinking:'PoPi đang chọn một ô thật khéo…',ready:'Sẵn sàng chưa nào?',yourTurn:'Đến lượt của bé!',p1Turn:'Đến lượt bạn 1!',p2Turn:'Đến lượt bạn 2!',
+        startDesc:'Bé đi trước với dấu X. Chọn một ô để bắt đầu!',nextDesc:(n)=>`Hãy nối đủ ${n} dấu thành một hàng nhé!`,
+        finished:'🏁 Đã kết thúc',pillYour:'● Lượt của bé',pillAi:'● Lượt PoPi',pillP1:'● Lượt bạn 1',pillP2:'● Lượt bạn 2',
+        drawCount:(n)=>`🤝 Hòa: ${n} ván`,scoreYour:'Bé thắng',scoreP1:'Bạn 1 thắng',scoreAi:'PoPi thắng',scoreP2:'Bạn 2 thắng',
+        speechWin:'Giỏi quá! 🎉',speechLose:'Chúng mình chơi lại nhé! 💛',speechHello:'Xin chào! Mình cùng chơi nào! 💛',hintToast:'Ô có ngôi sao ✦ là một nước đi đáng thử!',undoToast:'Bé đã quay lại nước đi trước!',
+        guide:'❌ đi trước · ⭕ đi sau.\nChạm vào một ô trống để đánh dấu.\nAi nối đủ hàng trước sẽ thắng! ✨'
+      },
+      en: {
+        title:'Play Caro with PoPi 🎮',tagline:'PLAY • LEARN • GROW',eyebrow:'🌈 For kids ages 6–10',intro:'Think ahead, spot patterns, and find your winning move. Every match is a new adventure!',
+        playWith:'Who would you like to play?',chooseBoard:'Choose a board',difficultyTitle:'How clever is PoPi?',withPopi:'🤖 Play PoPi',twoPlayers:'👫 Two players',
+        starter:'Little beginner',starterSub:'10 × 10 board · Connect 4',advanced:'Strategy star',advancedSub:'15 × 15 board · Connect 5',
+        easy:'😊 Easy',normal:'🙂 Medium',hard:'🧠 Hard',tipsTitle:'💡 PoPi’s little tip',boardTitle:'🎲 YOUR GAME BOARD',zoomTip:'👆 Drag the enlarged board to see more squares.',
+        undoBtn:'↶ Undo',hintBtn:'💡 Hint',newBtn:'↻ New game',scoreTitle:'🏆 Your scores',guideTitle:'📚 How to play',
+        footer:'Made with 💚 for kids · PoPi Smart Kids · No ads · No account needed',
+        languagePicker:'Choose language',settingsLabel:'Game settings',modeLabel:'Game mode',difficultyLabel:'Difficulty',mascotAria:'Smiling PoPi mascot',
+        soundOn:'🔊 Sound: On',soundOff:'🔇 Sound: Off',
+        help:(n)=>`Get ${n} matching marks in a horizontal, vertical, or diagonal row to win. Watch your opponent’s moves, too!`,
+        boardRule:(size,n)=>`${size} × ${size} squares · Connect ${n} to win`,boardAria:(size,n)=>`${size} by ${size} Caro board, connect ${n} to win`,
+        zoomIn:'🔎 Zoom in',zoomOut:'🔍 Zoom out',cellAria:(r,c,piece,hint)=>`Row ${r}, column ${c}${piece?', mark '+piece:''}${hint?', suggested move':''}`,
+        drawTitle:'It’s a draw! 🤝',drawDesc:'Great game, both of you! Want to play again?',
+        xWon:'Hooray! You win! 🎉',p1Won:'Player 1 wins! 🎉',xDesc:'Great thinking! Ready for another round?',
+        oWon:'PoPi wins this round! 🌟',p2Won:'Player 2 wins! 🎉',oDesc:'Try again with a new strategy!',
+        aiTurn:'PoPi’s turn 🤖',aiThinking:'PoPi is picking a clever square…',ready:'Ready to play?',yourTurn:'Your turn!',p1Turn:'Player 1’s turn!',p2Turn:'Player 2’s turn!',
+        startDesc:'You go first with X. Tap a square to begin!',nextDesc:(n)=>`Connect ${n} marks in a row to win!`,
+        finished:'🏁 Game over',pillYour:'● Your turn',pillAi:'● PoPi’s turn',pillP1:'● Player 1',pillP2:'● Player 2',
+        drawCount:(n)=>`🤝 Draws: ${n}`,scoreYour:'You win',scoreP1:'Player 1',scoreAi:'PoPi wins',scoreP2:'Player 2',
+        speechWin:'Great job! 🎉',speechLose:'Let’s try again! 💛',speechHello:'Hi! Let’s play! 💛',hintToast:'Try the square with the ✦ star!',undoToast:'Your last move was undone!',
+        guide:'❌ goes first · ⭕ goes next.\nTap an empty square to play.\nConnect a row to win! ✨'
+      }
+    };
+    const tr=(key,...args)=>{const val=I18N[settings.language][key];return typeof val==='function'?val(...args):val||key;};
+    function applyLanguage(){
+      document.documentElement.lang=settings.language;
+      document.title=tr('title');
+      $('page-title').innerHTML=settings.language==='vi'?'Chơi cờ caro<br>cùng <em>PoPi!</em>':'Play Caro<br>with <em>PoPi!</em>';
+      document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=tr(el.dataset.i18n);});
+      document.querySelectorAll('[data-i18n-aria]').forEach(el=>{el.setAttribute('aria-label',tr(el.dataset.i18nAria));});
+      $('tiny-guide').textContent=tr('guide');
+      document.querySelectorAll('[data-lang]').forEach(btn=>{const active=btn.dataset.lang===settings.language;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));});
+    }
     const emptyStats = () => ({ai:{X:0,O:0,draw:0},friends:{X:0,O:0,draw:0}});
     let stats = safeGet(STATS_KEY) || emptyStats();
     for (const mode of ['ai','friends']) {
@@ -334,7 +415,7 @@
       const won=moves.find(i=>{game.cells[i]=piece;const w=getWin(game.cells,i,piece);game.cells[i]=null;return w;});
       const block=moves.find(i=>{game.cells[i]=opp;const w=getWin(game.cells,i,opp);game.cells[i]=null;return w;});
       hintAt=won??block??moves.sort((a,b)=>(scoreAt(game.cells,b,piece)+scoreAt(game.cells,b,opp)*1.25)-(scoreAt(game.cells,a,piece)+scoreAt(game.cells,a,opp)*1.25))[0];
-      infoOverride='Ô có ngôi sao ✦ là một nước đi đáng thử!';sound('hint');render();
+      infoOverride='hintToast';sound('hint');render();
     }
     function undo() {
       stopAi();
@@ -347,7 +428,7 @@
         game.cells[at]=null;
       }
       game.current=game.history.length%2===0?'X':'O';
-      game.winner=null;game.winning=[];game.recorded=false;hintAt=-1;infoOverride='Bé đã quay lại nước đi trước!';
+      game.winner=null;game.winning=[];game.recorded=false;hintAt=-1;infoOverride='undoToast';
       persist();render();
       if(settings.mode==='ai' && game.current==='O') scheduleAi();
     }
@@ -359,23 +440,24 @@
       newGame();
     }
     function render() {
+      applyLanguage();
       const rule=getRule();
       for(const btn of document.querySelectorAll('[data-mode]')){const active=btn.dataset.mode===settings.mode;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));}
       for(const btn of document.querySelectorAll('[data-preset]')){const active=btn.dataset.preset===settings.preset;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));}
       for(const btn of document.querySelectorAll('[data-difficulty]')){const active=btn.dataset.difficulty===settings.difficulty;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));}
       $('difficulty-section').hidden=settings.mode==='friends';
-      $('sound-button').textContent=settings.sound?'🔊 Âm thanh: Bật':'🔇 Âm thanh: Tắt';
+      $('sound-button').textContent=tr(settings.sound?'soundOn':'soundOff');
       $('sound-button').setAttribute('aria-pressed',String(settings.sound));
-      $('help-text').textContent=`Đặt ${rule.target} dấu giống nhau thành một hàng ngang, dọc hoặc chéo để chiến thắng. Nhớ để ý cả nước đi của đối thủ nhé!`;
+      $('help-text').textContent=tr('help',rule.target);
       const board=$('board');board.style.setProperty('--cells',String(rule.size));board.dataset.size=String(rule.size);
       board.classList.toggle('zoomed',boardZoomed && rule.size===15);
       $('board-shell').classList.toggle('zoomed',boardZoomed && rule.size===15);
-      $('board-rule').textContent=`${rule.size} × ${rule.size} ô · Nối ${rule.target} quân để thắng`;
+      $('board-rule').textContent=tr('boardRule',rule.size,rule.target);
       $('zoom-button').hidden=rule.size!==15;
-      $('zoom-button').textContent=boardZoomed?'🔍 Thu nhỏ':'🔎 Phóng to';
+      $('zoom-button').textContent=tr(boardZoomed?'zoomOut':'zoomIn');
       $('zoom-button').setAttribute('aria-pressed',String(boardZoomed));
       $('zoom-tip').hidden=!(boardZoomed && rule.size===15);
-      board.setAttribute('aria-label',`Bàn cờ caro ${rule.size} nhân ${rule.size}, nối ${rule.target} để thắng`);
+      board.setAttribute('aria-label',tr('boardAria',rule.size,rule.target));
       const fragment=document.createDocumentFragment(),last=game.history.at(-1),winSet=new Set(game.winning);
       game.cells.forEach((piece,i)=>{
         const cell=document.createElement('button');cell.type='button';cell.className='cell';
@@ -383,9 +465,9 @@
         if(i===last)cell.classList.add('last');
         if(winSet.has(i))cell.classList.add('winning');
         if(hintAt===i)cell.classList.add('hint');
-        cell.textContent=piece||'';
+        if(piece){const mark=document.createElement('span');mark.className='piece-mark';mark.textContent=piece;mark.setAttribute('aria-hidden','true');cell.appendChild(mark);}
         const r=Math.floor(i/rule.size)+1,c=i%rule.size+1;
-        cell.setAttribute('aria-label',`Hàng ${r}, cột ${c}${piece?', dấu '+piece:''}${hintAt===i?', gợi ý':''}`);
+        cell.setAttribute('aria-label',tr('cellAria',r,c,piece,hintAt===i));
         cell.disabled=Boolean(piece)||Boolean(game.winner)||pendingAi!==null||(settings.mode==='ai'&&game.current==='O');
         cell.addEventListener('click',()=>humanPlay(i));fragment.appendChild(cell);
       });
@@ -394,20 +476,22 @@
       $('hint-button').disabled=Boolean(game.winner)||pendingAi!==null||(settings.mode==='ai'&&game.current==='O');
       const isHumanTurn=game.current==='X',winner=game.winner;
       let title,description,icon;
-      if(winner==='draw'){title='Hai bên hòa nhau! 🤝';description='Cả hai đã chơi rất tốt! Thử thêm một ván nhé.';icon='🌈';}
-      else if(winner==='X'){title=settings.mode==='ai'?'Hoan hô! Bé chiến thắng! 🎉':'Bạn 1 đã chiến thắng! 🎉';description='Quan sát thật giỏi! Bé có muốn thử ván tiếp theo?';icon='🏆';}
-      else if(winner==='O'){title=settings.mode==='ai'?'PoPi thắng lượt này! 🌟':'Bạn 2 đã chiến thắng! 🎉';description='Chơi lại và thử một chiến thuật khác nhé!';icon=settings.mode==='ai'?'🤖':'🏆';}
-      else if(pendingAi!==null){title='Đến lượt của PoPi 🤖';description='PoPi đang chọn một ô thật khéo…';icon='🤔';}
-      else {title=isHumanTurn?(game.history.length===0?'Sẵn sàng chưa nào?':'Đến lượt của bé!'):settings.mode==='ai'?'Đến lượt PoPi!':'Đến lượt bạn 2!';
-        if(settings.mode==='friends'&&isHumanTurn&&game.history.length>0)title='Đến lượt bạn 1!';
-        description=infoOverride||(game.history.length===0?'Bé đi trước với dấu X. Chọn một ô để bắt đầu!':`Hãy nối đủ ${rule.target} dấu thành một hàng nhé!`);icon=isHumanTurn?'🌟':settings.mode==='ai'?'🤖':'🌻';}
+      if(winner==='draw'){title=tr('drawTitle');description=tr('drawDesc');icon='🌈';}
+      else if(winner==='X'){title=tr(settings.mode==='ai'?'xWon':'p1Won');description=tr('xDesc');icon='🏆';}
+      else if(winner==='O'){title=tr(settings.mode==='ai'?'oWon':'p2Won');description=tr('oDesc');icon=settings.mode==='ai'?'🤖':'🏆';}
+      else if(pendingAi!==null){title=tr('aiTurn');description=tr('aiThinking');icon='🤔';}
+      else {
+        title=game.history.length===0?tr('ready'):tr(settings.mode==='friends'?(isHumanTurn?'p1Turn':'p2Turn'):(isHumanTurn?'yourTurn':'aiTurn'));
+        description=infoOverride?tr(infoOverride):(game.history.length===0?tr('startDesc'):tr('nextDesc',rule.target));
+        icon=isHumanTurn?'🌟':settings.mode==='ai'?'🤖':'🌻';
+      }
       $('status-title').textContent=title;$('status-description').textContent=description;$('status-icon').textContent=icon;
-      $('turn-pill').textContent=winner?'🏁 Đã kết thúc':settings.mode==='ai'?(isHumanTurn?'● Lượt của bé':'● Lượt PoPi'):(isHumanTurn?'● Lượt bạn 1':'● Lượt bạn 2');
+      $('turn-pill').textContent=winner?tr('finished'):settings.mode==='ai'?tr(isHumanTurn?'pillYour':'pillAi'):tr(isHumanTurn?'pillP1':'pillP2');
       $('turn-pill').classList.toggle('is-coral',isHumanTurn&&!winner);
-      $('score-x').textContent=stats[settings.mode].X;$('score-o').textContent=stats[settings.mode].O;$('draw-text').textContent=`🤝 Hòa: ${stats[settings.mode].draw} ván`;
-      $('score-x-label').textContent=settings.mode==='ai'?'Bé thắng':'Bạn 1 thắng';
-      $('score-o-label').textContent=settings.mode==='ai'?'PoPi thắng':'Bạn 2 thắng';
-      $('mascot-speech').textContent=winner==='X'?'Giỏi quá! 🎉':winner==='O'?'Chúng mình chơi lại nhé! 💛':'Xin chào! Mình cùng chơi nào! 💛';
+      $('score-x').textContent=stats[settings.mode].X;$('score-o').textContent=stats[settings.mode].O;$('draw-text').textContent=tr('drawCount',stats[settings.mode].draw);
+      $('score-x-label').textContent=tr(settings.mode==='ai'?'scoreYour':'scoreP1');
+      $('score-o-label').textContent=tr(settings.mode==='ai'?'scoreAi':'scoreP2');
+      $('mascot-speech').textContent=tr(winner==='X'?'speechWin':winner==='O'?'speechLose':'speechHello');
     }
     function sound(type) {
       if(!settings.sound) return;
@@ -436,6 +520,7 @@
     document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>changeSetting('mode',b.dataset.mode)));
     document.querySelectorAll('[data-preset]').forEach(b=>b.addEventListener('click',()=>changeSetting('preset',b.dataset.preset)));
     document.querySelectorAll('[data-difficulty]').forEach(b=>b.addEventListener('click',()=>changeSetting('difficulty',b.dataset.difficulty)));
+    document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>{if(settings.language===b.dataset.lang)return;settings.language=b.dataset.lang;safeSet(SETTINGS_KEY,settings);render();}));
     $('sound-button').addEventListener('click',()=>{settings.sound=!settings.sound;safeSet(SETTINGS_KEY,settings);render();sound('hint');});
     $('zoom-button').addEventListener('click',()=>{
       boardZoomed=!boardZoomed;

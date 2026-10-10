@@ -1,7 +1,7 @@
 {
-  "name": "PoPi Caro – Chơi cờ caro cùng PoPi",
+  "name": "PoPi Caro – Chơi cờ caro cùng PoPi / Play Caro with PoPi",
   "short_name": "PoPi Caro",
-  "description": "Web game cờ caro vui nhộn cho trẻ 6–10 tuổi. Chơi với PoPi hoặc cùng bạn bè.",
+  "description": "Bilingual Caro game for kids ages 6–10. Trò chơi cờ caro Việt/Anh cho trẻ em.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f4f9f6",

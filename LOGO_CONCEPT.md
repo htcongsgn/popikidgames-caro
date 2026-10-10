@@ -16,4 +16,4 @@ Icon được thiết kế theo hướng **vui nhộn, đơn giản, thân thi�
 ### Mục đích sử dụng
 - GitHub repository / GitHub Pages
 - Shortcut trên iPad/iPhone (Add to Home Screen)
-- Tích hợp vào hệ sinh thái PoPiKidGames
+- Tích hợp vào hệ sinh thái PoPi Smart Kids

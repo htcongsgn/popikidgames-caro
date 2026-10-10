@@ -1,6 +1,14 @@
-# 🎮 Chơi cờ caro cùng PoPi — V1.2
+# 🎮 Chơi cờ caro cùng PoPi — V1.3
 
-Web game cờ caro miễn phí, dành cho trẻ từ **6–10 tuổi**, chạy trên trình duyệt máy tính, điện thoại và iPad. Là một trò chơi thuộc hệ sinh thái **PoPiKidGames**.
+Web game cờ caro miễn phí, dành cho trẻ từ **6–10 tuổi**, chạy trên trình duyệt máy tính, điện thoại và iPad. Là một trò chơi thuộc hệ sinh thái **PoPi Smart Kids**.
+
+## ✅ Cập nhật V1.3
+
+- Sửa lỗi Safari/iPadOS làm quân **X/O lệch tâm** bằng lớp ký hiệu định vị tuyệt đối chính giữa ô, không phụ thuộc cách iPad render nút HTML.
+- Thêm chuyển đổi **Tiếng Việt (VI) / English (EN)** cho toàn bộ giao diện, thông báo kết quả, hướng dẫn và nhãn hỗ trợ tiếp cận; ghi nhớ ngôn ngữ trên trình duyệt.
+- Logo ở header được nhúng trực tiếp để không hiện biểu tượng ảnh bị lỗi khi thư mục `assets` thiếu hoặc CDN chậm. Các tệp icon độc lập vẫn nằm trong `assets/icons/`.
+- Thương hiệu **PoPi Smart Kids**, font dùng hệ thống phổ biến, tránh lỗi dấu tiếng Việt.
+- Giữ nguyên AI, luật chơi, nút điều khiển và thành tích đã lưu từ V1.2.
 
 ## 🎯 Tính năng
 
@@ -67,3 +75,12 @@ Sau đó truy cập `http://localhost:8000`.
 ## 🎨 Logo
 
 Logo gồm nhân vật PoPi vui nhộn, bàn cờ và các quân X/O. File gốc ở `assets/icons/popi-caro-icon-master.png`. Các biến thể favicon, Apple và Android/web được xuất sẵn. Xem `LOGO_CONCEPT.md` để biết định hướng nhận diện.
+
+## ♻️ Cập nhật repository đang chạy
+
+1. Giải nén ZIP. Trên GitHub chọn **Add file → Upload files** hoặc dùng Git để thay toàn bộ file cũ; quan trọng nhất là `index.html`, `manifest.webmanifest`, `favicon.ico` và **toàn bộ thư mục `assets/icons/`**.
+2. Nếu thấy logo cũ, kiểm tra thư mục `assets/icons` có đúng tên chữ thường và các ảnh PNG thực sự có mặt trên nhánh `main`.
+3. Chờ GitHub Pages hoàn tất triển khai và tải lại trang bằng **Ctrl+Shift+R** hoặc đóng mở lại Safari. Với shortcut iPad, đôi khi cần xóa shortcut cũ và **Add to Home Screen** lại để icon mới có hiệu lực.
+4. Không đổi địa chỉ repo hoặc đường dẫn trang, dữ liệu tiến trình và điểm số được giữ trên cùng trình duyệt nếu localStorage chưa bị xóa.
+
+**Kiểm thử:** Bản này được kiểm tra bằng Chromium mô phỏng kích thước iPad và desktop; vẫn nên thử thực tế trên Safari iPadOS của anh vì đây là lỗi phụ thuộc thiết bị.
